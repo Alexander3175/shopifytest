@@ -2,8 +2,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.swiper', {
       loop: true,
-      slidesPerView: {{ section.settings.NumberOfSlides_desktop }},
-      spaceBetween: {{ section.settings.slide_spacing }},
+slidesPerView: {{ section.settings.NumberOfSlides_desktop | default: 3 }},
+spaceBetween: {{ section.settings.slide_spacing | default: 20 }},
+
 
       {% if section.settings.show_navigation %}
       navigation: {
@@ -26,20 +27,21 @@
       },
       {% endif %}
 
-      breakpoints: {
-        480: {
-          slidesPerView: {{ section.settings.NumberOfSlides_mobile }},
-          spaceBetween: {{ section.settings.slide_spacing }},
-        },
-        768: {
-          slidesPerView: {{ section.settings.NumberOfSlides_mobile }},
-          spaceBetween: {{ section.settings.slide_spacing }},
-        },
-        1024: {
-          slidesPerView: {{ section.settings.NumberOfSlides_tablet }},
-          spaceBetween: {{ section.settings.slide_spacing }},
-        }
-      }
+breakpoints: {
+  480: {
+    slidesPerView: {{ section.settings.NumberOfSlides_mobile | default: 1 }},
+    spaceBetween: {{ section.settings.slide_spacing | default: 20 }},
+  },
+  768: {
+    slidesPerView: {{ section.settings.NumberOfSlides_tablet | default: 2 }},
+    spaceBetween: {{ section.settings.slide_spacing | default: 20 }},
+  },
+  1024: {
+    slidesPerView: {{ section.settings.NumberOfSlides_desktop | default: 3 }},
+    spaceBetween: {{ section.settings.slide_spacing | default: 20 }},
+  }
+}
+
     });
   });
 </script>
