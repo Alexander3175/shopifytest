@@ -1,0 +1,42 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper', {
+      slidesPerView: {{ section.settings.NumberOfSlides_desktop }},
+      spaceBetween: {{ section.settings.slide_spacing }},
+      loop: true,
+
+      {% if section.settings.show_navigation %}
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      {% endif %}
+
+      {% if section.settings.show_pagination %}
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      {% endif %}
+
+      {% if section.settings.show_scroll %}
+      scrollbar: {
+        el: '.swiper-scrollbar',
+        draggable: true,
+      },
+      {% endif %}
+
+      breakpoints: {
+        480: {
+          slidesPerView: {{ section.settings.NumberOfSlides_mobile }}
+        },
+        768: {
+          slidesPerView: {{ section.settings.NumberOfSlides_tablet }}
+        },
+        1024: {
+          slidesPerView: {{ section.settings.NumberOfSlides_desktop }}
+        }
+      }
+    });
+  });
+</script>

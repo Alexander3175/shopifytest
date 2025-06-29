@@ -5,72 +5,128 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
 {% endcomment %}
 
-<h1>{{ 'collections.title' | t }}</h1>
+<h1 class="collection-title">{{ 'collections.title' | t }}</h1>
+
+<div
+  class="swiper collections {{ section.settings.grid_item_width }}"
+  style="--grid-gap: {{ section.settings.grid_gap }}px"
+>
+  <div class="swiper-wrapper">
+    {% for collection in collections %}
+      <div class="swiper-slide">
+        <a class="collection-card" href="{{ collection.url }}">
+          {% if collection.featured_image %}
+            {% render 'image',
+              class: 'collection-card__image',
+              image: collection.featured_image,
+              width: 600,
+              height: 600,
+              crop: 'center'
+            %}
+          {% endif %}
+          <div class="collection-card__content">
+            <p>{{ collection.title }}</p>
+            {% if collection.description %}
+              <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+{% if section.settings.show_pagination %}
+  <div class="swiper-pagination"></div>
+{% endif %}
+
+{% if section.settings.show_navigation %}
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+{% endif %}
+
+{% if section.settings.show_scroll %}
+  <div class="swiper-scrollbar"></div>
+
+{% endif %}
+</div>
 
 <div
   class="collections {{ section.settings.grid_item_width }}"
   style="--grid-gap: {{ section.settings.grid_gap }}px"
 >
-  {% for collection in collections %}
-    <a class="collection-card" href="{{ collection.url }}">
-      {% if collection.featured_image %}
-        {% render 'image',
-          class: 'collection-card__image',
-          image: collection.featured_image,
-          width: 600,
-          height: 600,
-          crop: 'center'
-        %}
-      {% endif %}
-
-      <div class="collection-card__content">
-        <p>{{ collection.title }}</p>
-
-        {% if collection.description %}
-          <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
-        {% endif %}
-      </div>
-    </a>
-  {% endfor %}
-</div>
-
-{% stylesheet %}
-  .collections {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
-  }
-  .collections--compact {
-    --collection-card-size: 160px;
-  }
-  .collections--full {
-    --collection-card-size: 280px;
-  }
-  .collection-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.collections_grid",
+  "name": "Product gallery slider",
   "settings": [
+    {
+      "type": "range",
+      "id": "NumberOfSlides_desktop",
+      "label": "Кількість слайдів на ПК",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "NumberOfSlides_tablet",
+      "label": "Кількість слайдів на планшеті",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "NumberOfSlides_mobile",
+      "label": "Кількість слайдів на мобільному",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "slide_spacing",
+      "label": "Відступ між слайдами (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Увімкнути пагінацію",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Увімкнути стрілки навігації",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll",
+      "label": "Увімкнути скрол",
+      "default": true
+    },
     {
       "type": "select",
       "id": "grid_item_width",
-      "label": "t:labels.grid_item_width",
+      "label": "Ширина карточки колекції",
       "options": [
-        { "value": "collections--compact", "label": "t:options.size.small" },
-        { "value": "collections--full", "label": "t:options.size.large" }
+        { "value": "collections--compact", "label": "Маленька" },
+        { "value": "collections--full", "label": "Велика" }
       ],
       "default": "collections--full"
     },
     {
       "type": "range",
       "id": "grid_gap",
-      "label": "t:labels.grid_gap",
+      "label": "Відступ між карточками (grid)",
       "min": 0,
       "max": 50,
       "step": 5,
@@ -78,6 +134,12 @@
       "default": 10
     }
   ],
-  "presets": [{ "name": "t:general.collections_grid" }]
+  "presets": [
+    {
+      "name": "Слайдер колекцій"
+    }
+  ]
 }
 {% endschema %}
+
+  {% render 'swiper-init' %}

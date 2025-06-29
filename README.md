@@ -1,3 +1,5 @@
+shopify theme dev --store 1ei37x-fu.myshopify.com
+
 <h1 align="center" style="position: relative;">
   <br>
     <img src="./assets/shoppy-x-ray.svg" alt="logo" width="200">
