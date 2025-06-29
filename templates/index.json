@@ -11,20 +11,19 @@
   "sections": {
     "main": {
       "type": "hello-world",
-      "disabled": true,
       "settings": {}
     },
-    "custom_section_awnxiX": {
-      "type": "custom-section",
-      "custom_css": [
-        "div {background: black; width: 100%; height: 200px;}"
-      ],
-      "name": "t:general.custom_section",
-      "settings": {}
+    "collections_VKt7E6": {
+      "type": "collections",
+      "name": "t:general.collections_grid",
+      "settings": {
+        "grid_item_width": "collections--full",
+        "grid_gap": 10
+      }
     }
   },
   "order": [
     "main",
-    "custom_section_awnxiX"
+    "collections_VKt7E6"
   ]
 }
