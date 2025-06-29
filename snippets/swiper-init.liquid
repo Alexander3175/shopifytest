@@ -2,7 +2,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.swiper', {
       loop: true,
-      slidesPerView: {{ section.settings.number_of_slides_desktop }},
+      slidesPerView: {{ section.settings.NumberOfSlides_desktop }},
       spaceBetween: {{ section.settings.slide_spacing }},
 
       {% if section.settings.show_navigation %}
@@ -28,15 +28,15 @@
 
       breakpoints: {
         480: {
-          slidesPerView: {{ section.settings.number_of_slides_mobile }},
+          slidesPerView: {{ section.settings.NumberOfSlides_mobile }},
           spaceBetween: {{ section.settings.slide_spacing }},
         },
         768: {
-          slidesPerView: {{ section.settings.number_of_slides_tablet }},
+          slidesPerView: {{ section.settings.NumberOfSlides_mobile }},
           spaceBetween: {{ section.settings.slide_spacing }},
         },
         1024: {
-          slidesPerView: {{ section.settings.number_of_slides_desktop }},
+          slidesPerView: {{ section.settings.NumberOfSlides_tablet }},
           spaceBetween: {{ section.settings.slide_spacing }},
         }
       }
