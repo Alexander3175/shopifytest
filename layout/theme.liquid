@@ -7,6 +7,8 @@
     {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
     {{ 'collections-style.css' | asset_url | stylesheet_tag}}
+    {{ 'product-style.css' | asset_url | stylesheet_tag}}
+
     {{ 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css' | stylesheet_tag}}
     {{ 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js' | script_tag}}
 

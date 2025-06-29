@@ -1,0 +1,120 @@
+.product-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.product-images {
+  flex: 1 1 50%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.product-image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #e1e1e1;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-image.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+
+.product-image:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+.product-info {
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #fafafa;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.product-info h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.product-info p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  max-width: 400px;
+}
+
+.product-form select,
+.product-form input[type="text"] {
+  padding: 10px 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.product-form select:focus,
+.product-form input[type="text"]:focus {
+  border-color: #007aff;
+  outline: none;
+}
+
+.product-form input[type="submit"] {
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007aff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-form input[type="submit"]:hover {
+  background-color: #005bb5;
+}
+
+@media (max-width: 768px) {
+  .product-page {
+    flex-direction: column;
+  }
+
+  .product-images {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .product-info h1 {
+    font-size: 1.6rem;
+  }
+
+  .product-form {
+    max-width: 100%;
+    padding: 12px;
+  }
+}

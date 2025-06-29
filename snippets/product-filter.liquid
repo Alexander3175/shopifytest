@@ -1,0 +1,29 @@
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const variantSelector = document.querySelector('select[name="id"]');
+  const images = document.querySelectorAll('.product-image');
+
+  function filterImagesByVariantTitle(variantTitle) {
+    images.forEach(img => {
+      if (img.alt.toLowerCase().includes(variantTitle.toLowerCase())) {
+        img.classList.remove('hidden');
+      } else {
+        img.classList.add('hidden');
+      }
+    });
+  }
+
+  if (variantSelector) {
+    const selectedOption = variantSelector.options[variantSelector.selectedIndex];
+    const selectedTitle = selectedOption.text.split(' - ')[0];
+
+    filterImagesByVariantTitle(selectedTitle);
+
+    variantSelector.addEventListener('change', e => {
+      const selectedTitle = e.target.options[e.target.selectedIndex].text.split(' - ')[0];
+      filterImagesByVariantTitle(selectedTitle);
+    });
+  }
+});
+
+</script>
