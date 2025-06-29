@@ -1,9 +1,9 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.swiper', {
-      slidesPerView: {{ section.settings.NumberOfSlides_desktop }},
-      spaceBetween: {{ section.settings.slide_spacing }},
       loop: true,
+      slidesPerView: {{ section.settings.number_of_slides_desktop }},
+      spaceBetween: {{ section.settings.slide_spacing }},
 
       {% if section.settings.show_navigation %}
       navigation: {
@@ -28,13 +28,16 @@
 
       breakpoints: {
         480: {
-          slidesPerView: {{ section.settings.NumberOfSlides_mobile }}
+          slidesPerView: {{ section.settings.number_of_slides_mobile }},
+          spaceBetween: {{ section.settings.slide_spacing }},
         },
         768: {
-          slidesPerView: {{ section.settings.NumberOfSlides_tablet }}
+          slidesPerView: {{ section.settings.number_of_slides_tablet }},
+          spaceBetween: {{ section.settings.slide_spacing }},
         },
         1024: {
-          slidesPerView: {{ section.settings.NumberOfSlides_desktop }}
+          slidesPerView: {{ section.settings.number_of_slides_desktop }},
+          spaceBetween: {{ section.settings.slide_spacing }},
         }
       }
     });
