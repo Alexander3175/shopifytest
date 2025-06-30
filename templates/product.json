@@ -11,7 +11,9 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "allow_multiple": false
+      }
     }
   },
   "order": [
