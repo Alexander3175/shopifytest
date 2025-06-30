@@ -12,7 +12,7 @@
     "main": {
       "type": "product",
       "settings": {
-        "allow_multiple": false
+        "allow_multiple": true
       }
     }
   },
