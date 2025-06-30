@@ -1,0 +1,20 @@
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const allowMultiple = {{ section.settings.allow_multiple | json }};
+  const accordionItems = document.querySelectorAll('.accordion-item');
+
+  accordionItems.forEach(item => {
+    const summary = item.querySelector('summary');
+    summary.addEventListener('click', () => {
+      if (!allowMultiple) {
+        accordionItems.forEach(i => {
+          if (i !== item) {
+            i.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+});
+
+</script>

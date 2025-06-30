@@ -1,13 +1,15 @@
+{% assign allow_multiple = product.metafields.allow_multiple_open.value %}
+
+{% assign accordion_items = '' | split: '' %}
+{% assign titles = '' | split: '' %}
+{% assign descriptions = '' | split: '' %}
+
 <div class="product-page">
-<div class="product-images">
-  {% for image in product.images %}
-    <img
-      class="product-image"
-      src="{{ image.src | img_url: '600x600' }}"
-      alt="{{ image.alt | escape }}"
-    >
-  {% endfor %}
-</div>
+  <div class="product-images">
+    {% for image in product.images %}
+    <img class="product-image" src="{{ image.src | img_url: '600x600' }}" alt="{{ image.alt | escape }}">
+    {% endfor %}
+  </div>
 
 
   <div class="product-content">
@@ -19,24 +21,53 @@
 
     <div class="product-form">
       {% form 'product', product %}
-        {% assign current_variant = product.selected_or_first_available_variant %}
+      {% assign current_variant = product.selected_or_first_available_variant %}
 
-        <select name="id">
-          {% for variant in product.variants %}
-            <option
-              value="{{ variant.id }}"
-              {% if variant == current_variant %}selected="selected"{% endif %}
-            >
-              {{ variant.title }} - {{ variant.price | money }}
-            </option>
-          {% endfor %}
-        </select>
-
-        <input type="text" name="quantity" min="1" value="1">
-        <input type="submit" value="Add to cart">
-        {{ form | payment_button }}
+      <select name="id">
+        {% for variant in product.variants %}
+        <option value="{{ variant.id }}" {% if variant==current_variant %}selected="selected" {% endif %}>
+          {{ variant.title }} - {{ variant.price | money }}
+        </option>
+        {% endfor %}
+      </select>
+      <input type="text" name="quantity" min="1" value="1">
+      <input type="submit" value="Add to cart">
+      {{ form | payment_button }}
       {% endform %}
     </div>
   </div>
+  {% for i in (1..2) %}
+  {% assign title_key = 'title_' | append: i %}
+  {% assign desc_key = 'description_' | append: i %}
+
+  {% assign title = product.metafields.accordion[title_key] %}
+  {% assign desc = product.metafields.accordion[desc_key] %}
+
+  {% if title != blank and desc != blank %}
+  <details class="accordion-item">
+    <summary class="accordion-title">{{ title.value }}</summary>
+    <div class="accordion-content">
+      {{ desc.value }}
+
+    </div>
+  </details>
+  {% endif %}
+  {% endfor %}
 </div>
+
 {% render 'product-filter' %}
+{% render 'product-accordion' %}
+
+{% schema  %}  
+{
+  "name": "product accordion",
+  "settings": [
+  {
+    "type": "checkbox",
+    "id": "allow_multiple",
+    "label": "Дозволити відкривати кілька акордеонів одночасно",
+    "default": true
+  }
+  ]
+}
+{% endschema %}
